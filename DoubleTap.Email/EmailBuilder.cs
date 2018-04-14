@@ -13,7 +13,7 @@ namespace DoubleTap.Email
         readonly ITemplateService _templateService;
         bool _asHtml;
         string _body;
-        string _from;
+        From _from;
         object _model;
         string _subject;
         string _templateKey;
@@ -33,7 +33,13 @@ namespace DoubleTap.Email
 
         public EmailBuilder From(string from)
         {
-            _from = from;
+            _from = new From(from);
+            return this;
+        }
+
+        public EmailBuilder From(string emailAddress, string displayName)
+        {
+            _from = new From(emailAddress, displayName);
             return this;
         }
 

@@ -7,15 +7,16 @@ namespace DoubleTap.Email
     {
         readonly string[] _categories;
 
-        public EmailAudience(string[] categories, string[] to, string @from)
+        public EmailAudience(string[] categories, string[] to, From from)
         {
             _categories = categories;
-            To = to;
-            From = @from;
+            To          = to;
+            From        = from;
         }
 
         public string[] To { get; }
-        public string From { get; }
+        public From From { get; }
+
         public bool Targets(string category)
         {
             return _categories.Contains(category, StringComparer.OrdinalIgnoreCase);

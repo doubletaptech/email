@@ -26,8 +26,7 @@ namespace DoubleTap.Email.Smtp
 
             if (email.From != null)
             {
-                mailMessage.From = new MailAddress(email.From);
-                // From = email.DisplayName == null ? new MailAddress(email.From) : new MailAddress(email.From, email.DisplayName)
+                mailMessage.From = new MailAddress(email.From.EmailAddress, email.From.DisplayName);
             }
 
             foreach (var to in email.To)

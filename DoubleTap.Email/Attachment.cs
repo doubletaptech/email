@@ -4,7 +4,7 @@
     {
         public Attachment(string name, string filePath)
         {
-            Name = name;
+            Name     = name;
             FilePath = filePath;
         }
 

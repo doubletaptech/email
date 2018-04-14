@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 
 namespace DoubleTap.Email
 {
-    public class EmailFactory
+    public class EmailFactory : IEmailFactory
     {
         readonly IEmailAudience[] _audiences;
         readonly IEmailClient _emailClient;
@@ -26,8 +26,8 @@ namespace DoubleTap.Email
             return builder.Build();
         }
 
-        /// <exception cref="ArgumentException">TThrown when the Audience for the specified category can not be found.</exception>
-        /// <exception cref="EmailBuilderException">Thrown if 'To' and 'From' have been modified.</exception>
+        /// <exception cref="T:System.ArgumentException">TThrown when the Audience for the specified category can not be found.</exception>
+        /// <exception cref="T:DoubleTap.Email.EmailBuilderException">Thrown if 'To' and 'From' have been modified.</exception>
         public Email CreateFor(string category, Action<EmailBuilder> email)
         {
             var builder = new EmailBuilder(_emailClient, _templateService);
@@ -35,7 +35,12 @@ namespace DoubleTap.Email
             var audience = getAudience(category);
 
             builder.To(audience.To);
-            builder.From(audience.From);
+
+            if (audience.From != null)
+            {
+                builder.From(audience.From.EmailAddress);
+            }
+            
             email(builder);
 
             var builtEmail = builder.Build();
