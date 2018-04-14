@@ -7,6 +7,7 @@
     <Authors>hassanmunir</Authors>
     <Company>DoubleTap Tech</Company>
     <Product />
+    <PackageLicenseUrl>https://raw.githubusercontent.com/doubletaptech/email/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

@@ -1,5 +1,4 @@
-﻿using System;
-using RazorEngine.Templating;
+﻿using RazorEngine.Templating;
 
 namespace DoubleTap.Email.Templating.Razor
 {
