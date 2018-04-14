@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace DoubleTap.Email
+namespace DoubleTap.Email.Smtp
 {
-    public class SendEmailOverSmtp : IEmailClient
+    public class SmtpEmailClient : IEmailClient
     {
         readonly ISmtpClientConfig _config;
 
-        public SendEmailOverSmtp(ISmtpClientConfig config)
+        public SmtpEmailClient(ISmtpClientConfig config)
         {
             _config = config;
         }
@@ -26,6 +27,7 @@ namespace DoubleTap.Email
             if (email.From != null)
             {
                 mailMessage.From = new MailAddress(email.From);
+                // From = email.DisplayName == null ? new MailAddress(email.From) : new MailAddress(email.From, email.DisplayName)
             }
 
             foreach (var to in email.To)
@@ -41,6 +43,14 @@ namespace DoubleTap.Email
 
             using (var smtpClient = new SmtpClient(_config.Host, _config.Port))
             {
+                smtpClient.EnableSsl = _config.EnableSsl ?? false;
+
+                if (_config.Credentials != null)
+                {
+                    smtpClient.Credentials = _config.Credentials;
+                    smtpClient.EnableSsl = _config.EnableSsl ?? true;
+                }
+
                 switch (_config.Mode)
                 {
                     case SmtpClientMode.Email:

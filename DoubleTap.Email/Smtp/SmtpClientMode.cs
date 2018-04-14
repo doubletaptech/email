@@ -1,4 +1,4 @@
-﻿namespace DoubleTap.Email
+﻿namespace DoubleTap.Email.Smtp
 {
     public enum SmtpClientMode
     {

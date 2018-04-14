@@ -7,10 +7,11 @@ namespace DoubleTap.Email
     public class EmailFactory
     {
         readonly IEmailAudience[] _audiences;
-        readonly IEmailClient     _emailClient;
+        readonly IEmailClient _emailClient;
         readonly ITemplateService _templateService;
 
-        public EmailFactory(IEmailClient emailClient, ITemplateService templateService,
+        public EmailFactory(IEmailClient emailClient,
+                            ITemplateService templateService,
                             params IEmailAudience[] audiences)
         {
             _emailClient     = emailClient;

@@ -9,15 +9,15 @@ namespace DoubleTap.Email
     public class EmailBuilder
     {
         readonly List<Attachment> _attachments = new List<Attachment>();
-        readonly IEmailClient     _emailClient;
+        readonly IEmailClient _emailClient;
         readonly ITemplateService _templateService;
-        bool                      _asHtml;
-        string                    _body;
-        string                    _from;
-        object                    _model;
-        string                    _subject;
-        string                    _templateKey;
-        string[]                  _to;
+        bool _asHtml;
+        string _body;
+        string _from;
+        object _model;
+        string _subject;
+        string _templateKey;
+        string[] _to;
 
         internal EmailBuilder(IEmailClient emailClient, ITemplateService templateService)
         {
