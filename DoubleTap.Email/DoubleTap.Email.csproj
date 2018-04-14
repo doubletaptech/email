@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>A library to simplify creating and sending emails with built in support for audiences and templating.</Description>
-    <Copyright>DoubleTap Ltd. (2018)</Copyright>
+    <Copyright>DoubleTap Tech Ltd. (2018)</Copyright>
     <Authors>hassanmunir</Authors>
-    <Company>DoubleTap</Company>
+    <Company>DoubleTap Tech</Company>
     <Product />
   </PropertyGroup>
 
