@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>DoubleTap.Email</id>
+    <version>$version$</version>
+    <authors>hassanmunir</authors>
+    <description>A library to simplify creating and sending emails with built in support for audiences and templating.</description>
+    <projectUrl></projectUrl>
+    <licenseUrl></licenseUrl>
+    <tags>email smtp</tags>
+    <copyright>DoubleTap Ltd. (2018)</copyright>
+    <references>
+      <reference file="DoubleTap.Email.dll"/>
+      <refernce file="DoubleTap.Email.pdb"/>
+    </references>
+  </metadata>
+  <files>
+    <file src="bin\Release\DoubleTap.Email.dll"/>
+    <file src="bin\Release\DoubleTap.Email.pdb"/>
+  </files>
+</package>

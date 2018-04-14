@@ -2,6 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>A library to simplify creating and sending emails with built in support for audiences and templating.</Description>
+    <Copyright>DoubleTap Ltd. (2018)</Copyright>
+    <Authors>hassanmunir</Authors>
+    <Company>DoubleTap</Company>
+    <Product />
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\DoubleTap.Email.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="jetbrains.annotations" Version="11.1.0" />
+  </ItemGroup>
 
 </Project>
