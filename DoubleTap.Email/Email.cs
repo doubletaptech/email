@@ -9,18 +9,21 @@ namespace DoubleTap.Email
     {
         [NotNull] readonly Func<Email, Task> _sendAsync;
 
-        internal Email(
-            [CanBeNull] From from,
-            [NotNull] string[] to,
-            [CanBeNull] string subject,
-            [NotNull] string body,
-            [CanBeNull] IReadOnlyList<Attachment> attachments,
-            bool isBodyHtml,
-            [NotNull] Func<Email, Task> sendAsync)
+        internal Email([CanBeNull] From from,
+                       [NotNull] string[] to,
+                       [CanBeNull] string[] cc,
+                       [CanBeNull] string[] bcc,
+                       [CanBeNull] string subject,
+                       [NotNull] string body,
+                       [CanBeNull] IReadOnlyList<Attachment> attachments,
+                       bool isBodyHtml,
+                       [NotNull] Func<Email, Task> sendAsync)
         {
             _sendAsync  = sendAsync;
             From        = from;
             To          = to;
+            Cc          = cc ?? new string[0];
+            Bcc         = bcc ?? new string[0];
             Subject     = subject;
             Body        = body;
             Attachments = attachments ?? new Attachment[0];
@@ -32,6 +35,12 @@ namespace DoubleTap.Email
 
         [NotNull]
         public string[] To { get; }
+
+        [NotNull]
+        public string[] Cc { get; }
+
+        [NotNull]
+        public string[] Bcc { get; }
 
         [CanBeNull]
         public string Subject { get; }

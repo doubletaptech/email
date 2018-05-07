@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using JetBrains.Annotations;
 
 namespace DoubleTap.Email
@@ -30,9 +31,19 @@ namespace DoubleTap.Email
         /// <exception cref="T:DoubleTap.Email.EmailBuilderException">Thrown if 'To' and 'From' have been modified.</exception>
         public Email CreateFor(string category, Action<EmailBuilder> email)
         {
-            var builder = new EmailBuilder(_emailClient, _templateService);
-
             var audience = getAudience(category);
+
+            return buildEmail(audience, email);
+        }
+
+        public Email CreateFor(IEmailAudience audience, Action<EmailBuilder> email)
+        {
+            return buildEmail(audience, email);
+        }
+
+        Email buildEmail(IEmailAudience audience, Action<EmailBuilder> email)
+        {
+            var builder = new EmailBuilder(_emailClient, _templateService);
 
             builder.To(audience.To);
 
@@ -40,12 +51,13 @@ namespace DoubleTap.Email
             {
                 builder.From(audience.From.EmailAddress);
             }
-            
+
             email(builder);
 
             var builtEmail = builder.Build();
 
             ensureToAndFromHaveNotBeenModifed(builtEmail, audience);
+            ensureCcAndBccHaveNotBeenModifed(builtEmail, audience);
 
             return builtEmail;
         }
@@ -68,6 +80,15 @@ namespace DoubleTap.Email
             if (builtEmail.To != audience.To || builtEmail.From != audience.From)
                 throw new EmailBuilderException(
                     $"You can not modify the '{nameof(Email.To)}' or '{nameof(Email.From)}' parameters when targeting a specific audience. " +
+                    $"Use the '{nameof(Create)}' method if you need control over these.");
+        }
+
+        [AssertionMethod]
+        void ensureCcAndBccHaveNotBeenModifed(Email builtEmail, IEmailAudience audience)
+        {
+            if (builtEmail.Cc != audience.Cc || builtEmail.Bcc != audience.Bcc)
+                throw new EmailBuilderException(
+                    $"You can not modify the '{nameof(Email.Cc)}' or '{nameof(Email.Bcc)}' parameters when targeting a specific audience. " +
                     $"Use the '{nameof(Create)}' method if you need control over these.");
         }
     }

@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using JetBrains.Annotations;
 
 // ReSharper disable ArgumentsStyleNamedExpression
 
 namespace DoubleTap.Email
 {
+    [PublicAPI]
     public class EmailBuilder
     {
         readonly List<Attachment> _attachments = new List<Attachment>();
@@ -18,6 +20,8 @@ namespace DoubleTap.Email
         string _subject;
         string _templateKey;
         string[] _to;
+        string[] _cc;
+        string[] _bcc;
 
         internal EmailBuilder(IEmailClient emailClient, ITemplateService templateService)
         {
@@ -28,6 +32,18 @@ namespace DoubleTap.Email
         public EmailBuilder To(params string[] to)
         {
             _to = to;
+            return this;
+        }
+
+        public EmailBuilder Cc(params string[] cc)
+        {
+            _cc = cc;
+            return this;
+        }
+
+        public EmailBuilder Bcc(params string[] bcc)
+        {
+            _bcc = bcc;
             return this;
         }
 
@@ -117,6 +133,8 @@ namespace DoubleTap.Email
             return new Email(
                 from: _from,
                 to: _to,
+                cc: _cc,
+                bcc: _bcc,
                 subject: _subject,
                 body: body,
                 attachments: _attachments,
