@@ -128,7 +128,7 @@ namespace DoubleTap.Email
         {
             ensureSuppliedValuesAreValid();
 
-            var body = _body ?? _templateService.Apply(_templateKey, _model);
+            var body = _model != null ? applyTemplate(_model) : _body;
 
             return new Email(
                 from: _from,
@@ -140,6 +140,14 @@ namespace DoubleTap.Email
                 attachments: _attachments,
                 isBodyHtml: _asHtml,
                 sendAsync: email => _emailClient.SendAsync(email));
+        }
+
+        string applyTemplate(object model)
+        {
+            var modelType = model.GetType();
+            var template = $"{modelType.Name}";
+
+            return _templateService.Apply(template, _model);
         }
 
         void ensureSuppliedValuesAreValid()

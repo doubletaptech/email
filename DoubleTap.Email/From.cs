@@ -25,5 +25,27 @@ namespace DoubleTap.Email
         /// </summary>
         [CanBeNull]
         public string DisplayName { get; }
+
+        protected bool Equals(From other)
+        {
+            return string.Equals(EmailAddress, other.EmailAddress) && string.Equals(DisplayName, other.DisplayName);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((From) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((EmailAddress != null ? EmailAddress.GetHashCode() : 0) * 397) ^
+                       (DisplayName != null ? DisplayName.GetHashCode() : 0);
+            }
+        }
     }
 }

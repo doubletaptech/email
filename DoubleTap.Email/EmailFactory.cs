@@ -49,9 +49,19 @@ namespace DoubleTap.Email
 
             if (audience.From != null)
             {
-                builder.From(audience.From.EmailAddress);
+                builder.From(audience.From.EmailAddress, audience.From.DisplayName);
             }
 
+            if (audience.Cc != null)
+            {
+                builder.Cc(audience.Cc);
+            }
+            
+            if (audience.Bcc != null)
+            {
+                builder.Bcc(audience.Bcc);
+            }
+            
             email(builder);
 
             var builtEmail = builder.Build();
@@ -77,7 +87,7 @@ namespace DoubleTap.Email
         [AssertionMethod]
         void ensureToAndFromHaveNotBeenModifed(Email builtEmail, IEmailAudience audience)
         {
-            if (builtEmail.To != audience.To || builtEmail.From != audience.From)
+            if (!Equals(builtEmail.To, audience.To) || !Equals(builtEmail.From, audience.From))
                 throw new EmailBuilderException(
                     $"You can not modify the '{nameof(Email.To)}' or '{nameof(Email.From)}' parameters when targeting a specific audience. " +
                     $"Use the '{nameof(Create)}' method if you need control over these.");
@@ -86,7 +96,7 @@ namespace DoubleTap.Email
         [AssertionMethod]
         void ensureCcAndBccHaveNotBeenModifed(Email builtEmail, IEmailAudience audience)
         {
-            if (builtEmail.Cc != audience.Cc || builtEmail.Bcc != audience.Bcc)
+            if (!Equals(builtEmail.Cc, audience.Cc) || !Equals(builtEmail.Bcc, audience.Bcc))
                 throw new EmailBuilderException(
                     $"You can not modify the '{nameof(Email.Cc)}' or '{nameof(Email.Bcc)}' parameters when targeting a specific audience. " +
                     $"Use the '{nameof(Create)}' method if you need control over these.");

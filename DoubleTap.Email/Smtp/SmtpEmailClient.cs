@@ -57,7 +57,7 @@ namespace DoubleTap.Email.Smtp
                 if (_config.Credentials != null)
                 {
                     smtpClient.Credentials = _config.Credentials;
-                    smtpClient.EnableSsl = _config.EnableSsl ?? true;
+                    smtpClient.EnableSsl = _config.Mode != SmtpClientMode.Directory && (_config.EnableSsl ?? true);
                 }
 
                 // todo - this is sort of like a factory and violates open/closed principle 
@@ -67,6 +67,7 @@ namespace DoubleTap.Email.Smtp
                         break;
                     case SmtpClientMode.Directory:
                         smtpClient.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
+                        smtpClient.PickupDirectoryLocation = _config.DirectoryToWriteEmailsTo;
                         break;
                     case SmtpClientMode.Disabled:
                         Trace.TraceInformation($"Sending emails is disabled. Request to send email '{mailMessage.Subject}' to {formatToAddress(email.To)}");

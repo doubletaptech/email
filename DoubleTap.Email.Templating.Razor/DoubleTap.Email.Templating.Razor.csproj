@@ -2,6 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>hassanmunir</Authors>
+    <Company>DoubleTap Tech</Company>
+    <Product>DoubleTap.Email</Product>
+    <Description>A plugin for DoubleTap.Email to enable razor templates in the email body.</Description>
+    <Copyright>DoubleTap Tech (2018)</Copyright>
+    <PackageLicenseUrl>https://github.com/doubletaptech/email</PackageLicenseUrl>
+    <PackageTags>email smtp razor templating</PackageTags>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\DoubleTap.Email.Templating.Razor.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\DoubleTap.Email.Templating.Razor.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
