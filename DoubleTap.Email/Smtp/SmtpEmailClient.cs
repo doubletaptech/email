@@ -34,6 +34,16 @@ namespace DoubleTap.Email.Smtp
                 mailMessage.To.Add(to);
             }
 
+            foreach (var cc in email.Cc)
+            {
+                mailMessage.CC.Add(cc);   
+            }
+
+            foreach (var bcc in email.Bcc)
+            {
+                mailMessage.Bcc.Add(bcc);
+            }
+
             foreach (var attachment in email.Attachments)
             {
                 var emailAttachment = new System.Net.Mail.Attachment(attachment.FilePath) {Name = attachment.Name};
@@ -50,6 +60,7 @@ namespace DoubleTap.Email.Smtp
                     smtpClient.EnableSsl = _config.EnableSsl ?? true;
                 }
 
+                // todo - this is sort of like a factory and violates open/closed principle 
                 switch (_config.Mode)
                 {
                     case SmtpClientMode.Email:
@@ -74,7 +85,7 @@ namespace DoubleTap.Email.Smtp
             }
         }
 
-        string formatToAddress(string[] to)
+        static string formatToAddress(string[] to)
         {
             return $"[{string.Join(", ", to)}]";
         }
