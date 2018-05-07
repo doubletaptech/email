@@ -67,7 +67,7 @@ namespace DoubleTap.Email
             var builtEmail = builder.Build();
 
             ensureToAndFromHaveNotBeenModifed(builtEmail, audience);
-            ensureCcAndBccHaveNotBeenModifed(builtEmail, audience);
+            //ensureCcAndBccHaveNotBeenModifed(builtEmail, audience);
 
             return builtEmail;
         }
